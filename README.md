@@ -46,3 +46,20 @@ measured values from the **original training run** (replay reproduces
 the scaled CSV** (the original-size peak reserved is 60.7969 GiB, which leaves
 no headroom for a single-GPU replay, so this directory ships the 0.75-scaled
 version).
+
+## Contributing
+
+**Contributions are very welcome!** To contribute a trace from any real
+training run: extract the malloc/free sequence from memory profiling or from a
+memory snapshot, verify it by replay, then open a PR.
+
+### CSV format — 4 columns
+
+| Column | Meaning |
+|---|---|
+| `op` | `malloc` or `free` |
+| `size` | allocation size in bytes |
+| `addr` | device address; the identity key that pairs each `free` with its `malloc` |
+| `step` | training step the row belongs to.  |
+
+Rows must be in chronological order.
